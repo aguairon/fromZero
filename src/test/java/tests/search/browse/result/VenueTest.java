@@ -17,24 +17,24 @@ public class VenueTest {
         browsePage.closeCookieBanner();
     }
 
-//    @Test
-//    public void browseReturnsResults() {
-//        Assert.assertTrue(browsePage.browseResults().size() > 0);
-//    }
-//
-//    @Test
-//    public void browseResultsHaveVenueSummaryAndOffers() {
-//        Assert.assertTrue(browsePage.browseResultsHaveVenueSummary().isEnabled());
-//        Assert.assertTrue(browsePage.browseResultsHaveOffers().isEnabled());
-//    }
-//
-//    @Test
-//    public void venueSummaryHasTheCorrectElements() {
-//        Assert.assertTrue(browsePage.venueSummariesHaveVenueTitle().isEnabled());
-//        Assert.assertTrue(browsePage.venueSummariesHaveVenueLocation().isEnabled());
-//        Assert.assertTrue(browsePage.venueSummariesHaveVenueRating().isEnabled());
-//        Assert.assertTrue(browsePage.venueSummariesHaveVenueDescription().isEnabled());
-//    }
+    @Test
+    public void browseReturnsResults() {
+        Assert.assertTrue(browsePage.browseResults().size() > 0);
+    }
+
+    @Test
+    public void browseResultsHaveVenueSummaryAndOffers() {
+        Assert.assertTrue(browsePage.browseResultsHaveVenueSummary().isEnabled());
+        Assert.assertTrue(browsePage.browseResultsHaveOffers().isEnabled());
+    }
+
+    @Test
+    public void venueSummaryHasTheCorrectElements() {
+        Assert.assertTrue(browsePage.venueSummariesHaveVenueTitle().isEnabled());
+        Assert.assertTrue(browsePage.venueSummariesHaveVenueLocation().isEnabled());
+        Assert.assertTrue(browsePage.venueSummariesHaveVenueRating().isEnabled());
+        Assert.assertTrue(browsePage.venueSummariesHaveVenueDescription().isEnabled());
+    }
 
     @Test
     public void ableToOpenVenuePageUsingVenueName() {
