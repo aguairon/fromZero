@@ -1,4 +1,4 @@
-package tests.search.browse.result;
+package tests.search.browse;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -8,7 +8,7 @@ import pages.BrowsePage;
 import pages.OfferForm;
 import pages.WebSite;
 
-public class VenueTest {
+public class resultsTest {
     WebSite site = new WebSite();
     BrowsePage browsePage;
 
@@ -64,11 +64,18 @@ public class VenueTest {
     }
 
     @Test
-    public void offerFormAndBrowseOfferFormSavingAreTheSame() {
+    public void offerFormAndBrowseOfferSavingAreTheSame() {
         Boolean discountPresent  = browsePage.offerResultsDiscountPrice().get(0).isEnabled();
         OfferForm offerForm = browsePage.openFirstBrowseResultOffer();
         Boolean choicesDiscountPresent = offerForm.choiceHaveDiscount();
         Assert.assertEquals(discountPresent, choicesDiscountPresent);
+    }
+
+    @Test
+    public void offerFormAndBrowseOfferPriceAreTheSame() {
+        OfferForm offerForm = browsePage.openFirstBrowseResultOffer();
+        Assert.assertTrue(offerForm.formHasCorrectNumberChoices(browsePage.firstOfferHasPriceRange()));
+        Assert.assertTrue(offerForm.firstChoicePrice().equals(browsePage.firstOfferPriceValue()));
     }
 
     @After

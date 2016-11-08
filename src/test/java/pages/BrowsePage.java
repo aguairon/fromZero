@@ -324,13 +324,24 @@ public class BrowsePage extends AbstractPage {
         return browseResults().get(0).findElement(By.cssSelector(".service"));
     }
 
-
     public String firstOfferTitle() {
         return  firstBrowseResultOffer().findElement(By.cssSelector(".name")).getText();
     }
 
     public String firstOfferDuration() {
         return firstBrowseResultOffer().findElement(By.cssSelector(".global-duration")).getText();
+    }
+
+    public WebElement firstOfferPrice() {
+        return firstBrowseResultOffer().findElement(By.cssSelector(".button .price"));
+    }
+
+    public Boolean firstOfferHasPriceRange() {
+        return firstOfferPrice().getCssValue("class").contains(".range");
+    }
+
+    public String firstOfferPriceValue() {
+        return firstOfferPrice().findElement(By.cssSelector(".price-currency")).getText() + firstOfferPrice().findElement(By.cssSelector(".price-integer")).getText();
     }
 
     private WebElement getOfferElements(String css) {
