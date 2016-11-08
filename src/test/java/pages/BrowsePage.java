@@ -80,10 +80,7 @@ public class BrowsePage extends AbstractPage {
     }
 
     public Boolean bookableOfferTypeFilterIsSelected() {
-        if (bookableOfferTypeFilter().getAttribute("class").contains("on")) {
-            return true;
-        }
-        return false;
+        return bookableOfferTypeFilter().getAttribute("class").contains("on");
     }
 
     public void selectBookableOfferType() {
@@ -220,9 +217,8 @@ public class BrowsePage extends AbstractPage {
 
     public Boolean checkVenueLocations(String location) {
         pause(1500);
-        for (WebElement element: findElements(".location-wrapper-control .place")) {
+        for (WebElement element: findElements(".location-wrapper-control .place"))
             return element.getText().contains(location);
-        }
         return false;
     }
 
@@ -240,11 +236,6 @@ public class BrowsePage extends AbstractPage {
         click(firstTreatmentType());
         waitUntilResultsReturn();
         return treatmentType;
-    }
-
-    public void selectAllTreatmentsTypes() {
-        click(".b-treatment-type .choices:nth-child(2) li:nth-child(1) .radio");
-        waitUntilResultsReturn();
     }
 
     public List<WebElement> browseResults() {
