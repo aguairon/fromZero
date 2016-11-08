@@ -18,15 +18,33 @@ public class OfferForm extends AbstractPage {
 
     public Boolean appointmentBookingSectionIsSelected() {
 //        return findElement("[data-code='APPOINTMENT']").getAttribute("class").contains("on");
-        return bookingTabIsSeleccted("APPOINTMENT");
+        return bookingTabIsSelected("APPOINTMENT");
     }
 
     public Boolean evoucherBookingSectionIsSelected() {
-        return bookingTabIsSeleccted("EVOUCHER");
+        return bookingTabIsSelected("EVOUCHER");
 //        return findElement("[data-code='EVOUCHER']").getAttribute("class").contains("on");
     }
 
-    public Boolean bookingTabIsSeleccted(String bookingType) {
+    public Boolean bookingTabIsSelected(String bookingType) {
         return findElement("[data-code='"+bookingType+"']").getAttribute("class").contains("on");
+    }
+
+    public String title() {
+        return findElement(".offer-popup .offer-name").getText();
+    }
+
+    public String choicesDuration() {
+        if (findElements(".choices .choice").size() > 1) {
+            return findElement(".choices .choice:nth-child(1) .title").getText() + " - " + findElement(".choices .choice:nth-last-child(1) .title").getText();
+        }
+        return findElement(".choices .choice .title").getText();
+    }
+
+    public Boolean choiceHaveDiscount() {
+        if (findElements(".choices .choice .with-full").size() > 0) {
+            return true;
+        }
+        return false;
     }
 }

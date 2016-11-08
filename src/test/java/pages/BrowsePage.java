@@ -171,7 +171,6 @@ public class BrowsePage extends AbstractPage {
         waitUntilResultsReturn();
         pause(1000);
         return firstSublocation().getText().replaceAll("[^a-zA-Z]", " ").trim();
-//        return location[1];
     }
 
     public WebElement firstSublocationOnPage() {
@@ -312,11 +311,55 @@ public class BrowsePage extends AbstractPage {
 
     public String firstBrowseResultVenueName() {
         pause(100);
-        return firstBrowseResultVenue().getAttribute("a");
+        return firstBrowseResultVenue().getText().toLowerCase().replaceAll(" ", "-");
     }
 
     public VenuePage openFirstBrowseResultVenuePage() {
         click(firstBrowseResultVenue());
+        pause(500);
         return new VenuePage(getDriver());
+    }
+
+    public WebElement firstBrowseResultOffer() {
+        return browseResults().get(0).findElement(By.cssSelector(".service"));
+    }
+
+
+    public String firstOfferTitle() {
+        return  firstBrowseResultOffer().findElement(By.cssSelector(".name")).getText();
+    }
+
+    public String firstOfferDuration() {
+        return firstBrowseResultOffer().findElement(By.cssSelector(".global-duration")).getText();
+    }
+
+    private WebElement getOfferElements(String css) {
+        for (WebElement e : findElements(".services")) {
+            return e.findElement(By.cssSelector(css));
+        }
+        return null;
+    }
+
+    public WebElement offersHaveTitles(){
+        WebElement e = getOfferElements(".name");
+        if (e != null) return e;
+        return null;
+    }
+
+    public WebElement offersHaveDurations() {
+        WebElement e = getOfferElements(".global-duration");
+        if (e != null) return e;
+        return null;
+    }
+
+    public WebElement offersHavePrices() {
+        WebElement e = getOfferElements("[data-track-event-property='service_price']");
+        if (e != null) return e;
+        return null;
+    }
+
+    public OfferForm openFirstBrowseResultOffer() {
+        click(firstBrowseResultOffer());
+        return new OfferForm(getDriver());
     }
 }

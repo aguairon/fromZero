@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import pages.BrowsePage;
+import pages.OfferForm;
 import pages.WebSite;
 
 public class VenueTest {
@@ -29,7 +30,7 @@ public class VenueTest {
     }
 
     @Test
-    public void venueSummaryHasTheCorrectElements() {
+    public void venueSummaryHaveTheCorrectElements() {
         Assert.assertTrue(browsePage.venueSummariesHaveVenueTitle().isEnabled());
         Assert.assertTrue(browsePage.venueSummariesHaveVenueLocation().isEnabled());
         Assert.assertTrue(browsePage.venueSummariesHaveVenueRating().isEnabled());
@@ -40,7 +41,34 @@ public class VenueTest {
     public void ableToOpenVenuePageUsingVenueName() {
         String venueName = browsePage.firstBrowseResultVenueName();
         browsePage.openFirstBrowseResultVenuePage();
-        Assert.assertTrue(site.getCurrentUrl().endsWith(venueName));
+        Assert.assertTrue(site.getCurrentUrl().contains(venueName));
+    }
+
+    @Test
+    public void offersHaveCorrectElements() {
+        Assert.assertTrue(browsePage.offersHaveTitles().isEnabled());
+        Assert.assertTrue(browsePage.offersHaveDurations().isEnabled());
+        Assert.assertTrue(browsePage.offersHavePrices().isEnabled());
+    }
+
+    @Test
+    public void offerFormAndBrowseOfferTitleAreTheSame() {
+        OfferForm offerForm = browsePage.openFirstBrowseResultOffer();
+        Assert.assertTrue(browsePage.firstOfferTitle().equals(offerForm.title()));
+    }
+
+    @Test
+    public void offerFormAndBrowseOfferDurationAreTheSame() {
+        OfferForm offerForm = browsePage.openFirstBrowseResultOffer();
+        Assert.assertTrue(browsePage.firstOfferDuration().equals(offerForm.choicesDuration()));
+    }
+
+    @Test
+    public void offerFormAndBrowseOfferFormSavingAreTheSame() {
+        Boolean discountPresent  = browsePage.offerResultsDiscountPrice().get(0).isEnabled();
+        OfferForm offerForm = browsePage.openFirstBrowseResultOffer();
+        Boolean choicesDiscountPresent = offerForm.choiceHaveDiscount();
+        Assert.assertEquals(discountPresent, choicesDiscountPresent);
     }
 
     @After
