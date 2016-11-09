@@ -10,4 +10,9 @@ public class AvailabilityPage extends AbstractPage {
     public boolean dateIsSelected(String date) {
         return findElement(".day-selection [data-date='"+date+"']").getAttribute("class").contains("on");
     }
+
+    public CheckoutPage goToCheckout() {
+        click(".totals .button");
+        return new CheckoutPage(getDriver());
+    }
 }

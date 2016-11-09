@@ -50,7 +50,7 @@ public class AvailabilityTest {
     }
 
     @Test
-    public void cannotSelectTimeAvailabityIfDateAvailabilityIsNotSelected() {
+    public void cannotSelectTimeAvailabilityIfDateAvailabilityIsNotSelected() {
         Assert.assertNotNull(browsePage.timeAvailabilityDropdownIsDisabled());
     }
 

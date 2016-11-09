@@ -8,7 +8,7 @@ import pages.BrowsePage;
 import pages.OfferForm;
 import pages.WebSite;
 
-public class resultsTest {
+public class ResultsTest {
     WebSite site = new WebSite();
     BrowsePage browsePage;
 

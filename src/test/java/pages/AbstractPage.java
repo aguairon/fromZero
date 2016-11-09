@@ -45,6 +45,10 @@ public abstract class AbstractPage {
         element.click();
     }
 
+    protected void setField(String css, String copy) {
+        findElement(css).sendKeys(copy);
+    }
+
     protected void setField(WebElement element, String copy)  {
         element.sendKeys(copy);
     }
