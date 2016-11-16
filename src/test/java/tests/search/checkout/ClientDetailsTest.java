@@ -6,8 +6,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.NoSuchElementException;
 import pages.*;
 import types.SiteCustomer;
+
 
 public class ClientDetailsTest {
     WebSite site = new WebSite();
@@ -28,12 +30,49 @@ public class ClientDetailsTest {
     }
 
     @Test
-    public void checkFullNameNeedsToBeFilledIn() {
-        checkoutPage.setCustomerName("i");
+    public void customerDetailsNeedToBeFilledIn() {
         checkoutPage.placeOrder();
-//        Assert.
-
+        Assert.assertTrue(checkoutPage.customerNameFieldReturnsError());
+        Assert.assertTrue(checkoutPage.customerEmailFieldReturnsError());
+        Assert.assertTrue(checkoutPage.customerPhoneFieldReturnsError());
     }
+
+    @Test
+    public void cannotUseInvalidEmail() {
+        checkoutPage.setCustomerEmail("email");
+        checkoutPage.placeOrder();
+        Assert.assertTrue(checkoutPage.customerEmailFieldReturnsError());
+    }
+
+    @Test
+    public void cannotUseInvalidPhoneNumber() {
+        checkoutPage.setCustomerPhoneNumber("66666");
+        checkoutPage.placeOrder();
+        Assert.assertTrue(checkoutPage.customerPhoneFieldReturnsError());
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void clientDetailsAcceptValidInformation() {
+        checkoutPage.setCustomerName(siteCustomer.fullName);
+        checkoutPage.setCustomerEmail(siteCustomer.emailAddress);
+        checkoutPage.setCustomerPhoneNumber(siteCustomer.phoneNumber);
+        Assert.assertFalse(checkoutPage.customerNameFieldReturnsError());
+        Assert.assertFalse(checkoutPage.customerEmailFieldReturnsError());
+        Assert.assertFalse(checkoutPage.customerPhoneFieldReturnsError());
+    }
+
+    @Test
+    public void subscriptionIsCheckedByDefault() {
+        Assert.assertTrue(checkoutPage.subscriptionCheckboxIsChecked());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void ableToDeselectSubscriptionOption() {
+        checkoutPage.deselectSubscriptionCheckbox();
+        Assert.assertFalse(checkoutPage.subscriptionCheckboxIsChecked());
+    }
+
+
 
     @After
     public void tearDown() throws Exception {
