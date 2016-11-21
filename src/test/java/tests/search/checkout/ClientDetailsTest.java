@@ -56,6 +56,7 @@ public class ClientDetailsTest {
         checkoutPage.setCustomerName(siteCustomer.fullName);
         checkoutPage.setCustomerEmail(siteCustomer.emailAddress);
         checkoutPage.setCustomerPhoneNumber(siteCustomer.phoneNumber);
+        checkoutPage.placeOrder();
         Assert.assertFalse(checkoutPage.customerNameFieldReturnsError());
         Assert.assertFalse(checkoutPage.customerEmailFieldReturnsError());
         Assert.assertFalse(checkoutPage.customerPhoneFieldReturnsError());
@@ -72,7 +73,16 @@ public class ClientDetailsTest {
         Assert.assertFalse(checkoutPage.subscriptionCheckboxIsChecked());
     }
 
+    @Test
+    public void giftOptionIsTurnedOff() {
+        Assert.assertTrue(checkoutPage.giftOptionIsTurnedOff());
+    }
 
+    @Test
+    public void ableToSetAnotherClient() {
+        checkoutPage.turnOnGiftOption();
+        checkoutPage.setGiftRecipientName(siteCustomer.giftRecipientName);
+    }
 
     @After
     public void tearDown() throws Exception {

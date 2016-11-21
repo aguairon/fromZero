@@ -12,6 +12,7 @@ public class SiteCustomerFactory {
         PhoneNumberFactory phoneNumberFactory = new PhoneNumberFactory();
         siteCustomer.phoneNumber = phoneNumberFactory.build();
         siteCustomer.subscribe = true;
+        siteCustomer.giftRecipientName = "Gifty";
         return siteCustomer;
     }
 }

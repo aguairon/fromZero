@@ -50,6 +50,50 @@ public class CheckoutPage extends AbstractPage {
         click(subscriptionCheckbox());
     }
 
+    public Boolean giftOptionIsTurnedOff() {
+        return findElement(".gifts .inline-inputs .radio:nth-child(1)").findElement(By.cssSelector(".checked")).isEnabled();
+    }
+
+    public void turnOnGiftOption() {
+        click(".gifts .inline-inputs .radio:nth-child(2) label");
+    }
+
+    public void setGiftRecipientName(String giftRecipientName) {
+        setField(".gifts .gift .name-field", giftRecipientName);
+    }
+
+    public Boolean prepayMethodsIsSelectedByDefault() {
+        return findElement(".b-payment-methods .pre-pay .checked").isEnabled();
+    }
+
+    public WebElement newCardDetails() {
+        return findElement(".new-card");
+    }
+
+    public WebElement newCardNumberField() {
+        return findElement(".new-card .grid-line:nth-child(3) .form-row:nth-child(1)");
+    }
+
+    public void setNewCardNumber(String newCardNumber) {
+        setField(newCardNumberField().findElement(By.cssSelector("input")), newCardNumber);
+    }
+
+    public Boolean cardNumberFieldReturnsError() {
+        return newCardNumberField().getAttribute("class").contains("error");
+    }
+
+    public Boolean cardSecurityCodeFieldReturnsError() {
+        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(3) .form-row:nth-child(2).error")).isEnabled();
+    }
+
+    public Boolean cardholdersNameFieldReturnsError() {
+        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(4) .form-row:nth-child(1).error")).isEnabled();
+    }
+
+    public Boolean cardExpiryDateFieldReturnsError() {
+        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(4) .form-row:nth-child(2).error")).isEnabled();
+    }
+
     public void placeOrder() {
         click(".proceed .button");
     }

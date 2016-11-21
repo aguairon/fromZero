@@ -6,4 +6,5 @@ public class SiteCustomer {
     public String emailAddress;
     public String phoneNumber;
     public Boolean subscribe;
+    public String giftRecipientName;
 }
