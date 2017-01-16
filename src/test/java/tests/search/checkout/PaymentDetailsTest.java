@@ -19,7 +19,7 @@ public class PaymentDetailsTest {
     Card card = cardFactory.build();
 
     @Before
-    public void navigateToBrowsePage() {
+    public void navigateToCheckoutPage() {
         browsePage = site.navigateToBrowsePage();
         browsePage.closeCookieBanner();
         offerForm = browsePage.selectFirstAvailableOffer();
@@ -27,23 +27,33 @@ public class PaymentDetailsTest {
         checkoutPage = availabilityPage.goToCheckout();
     }
 
-//    @Test
-//    public void cardDetailsNeedToBeFilledInWhenCardOptionIsSelected() {
-//        Assert.assertTrue(checkoutPage.prepayMethodsIsSelectedByDefault());
-//        checkoutPage.placeOrder();
-//        Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
-//        Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
-//        Assert.assertTrue(checkoutPage.cardholdersNameFieldReturnsError());
-//        Assert.assertTrue(checkoutPage.cardExpiryDateFieldReturnsError());
-//    }
+    @Test
+    public void cardDetailsNeedToBeFilledInWhenCardOptionIsSelected() {
+        checkoutPage.selectPrepayCardMethod();
+        checkoutPage.placeOrder();
+        Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardholdersNameFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardExpiryDateFieldReturnsError());
+    }
 
     @Test
     public void cannotUseInvalidNewCardNumber() {
-        Assert.assertTrue(checkoutPage.prepayMethodsIsSelectedByDefault());
+        checkoutPage.selectPrepayCardMethod();
         checkoutPage.setNewCardNumber("41111");
         checkoutPage.placeOrder();
         Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
     }
+
+    @Test
+    public void cannotUseInvalidSecurityCode() {
+        checkoutPage.selectPrepayCardMethod();
+        checkoutPage.setSecurityCode("1111");
+        checkoutPage.placeOrder();
+        Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
+    }
+
+
 
     @After
     public void tearDown() throws Exception {
