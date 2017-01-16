@@ -18,8 +18,8 @@ public class SiteApi extends RestAssured {
     public String post(String body, String specificPath, int statusCode) {
          return given().contentType("application/json").body(body).
                  when().post(specificPath).
-                 then().statusCode(statusCode)
-                 .extract().response().asString();
+                 then().statusCode(statusCode).
+                 extract().response().asString();
     }
 
     public void close() throws Exception {
