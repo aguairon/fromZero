@@ -14,7 +14,6 @@ public class SiteApi extends RestAssured {
         RestAssured.basePath = basePath;
     }
 
-
     public String post(String body, String specificPath, int statusCode) {
          return given().contentType("application/json").body(body).
                  when().post(specificPath).
