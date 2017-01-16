@@ -20,8 +20,4 @@ public class SiteApi extends RestAssured {
                  then().statusCode(statusCode).
                  extract().response().asString();
     }
-
-    public void close() throws Exception {
-
-    }
 }
