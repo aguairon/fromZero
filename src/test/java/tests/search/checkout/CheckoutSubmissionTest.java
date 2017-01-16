@@ -2,33 +2,11 @@ package tests.search.checkout;
 
 
 import api.CheckoutApi;
-import api.SiteApi;
-import factories.CardFactory;
 import org.junit.Assert;
 import org.junit.Test;
-import pages.*;
-import types.Card;
 
 public class CheckoutSubmissionTest {
-    WebSite site = new WebSite();
-    BrowsePage browsePage;
-    OfferForm offerForm;
-    AvailabilityPage availabilityPage;
-    CheckoutPage checkoutPage;
-    CardFactory cardFactory = new CardFactory();
-    Card card = cardFactory.build();
-    SiteApi siteApi = new SiteApi();
     CheckoutApi checkoutApi = new CheckoutApi();
-
-
-//    @Before
-//    public void navigateToCheckoutPage() {
-//        browsePage = site.navigateToBrowsePage();
-//        browsePage.closeCookieBanner();
-//        offerForm = browsePage.selectFirstAvailableOffer();
-//        availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
-//        checkoutPage = availabilityPage.goToCheckout();
-//    }
 
     @Test
     public void submitCheckout() {
