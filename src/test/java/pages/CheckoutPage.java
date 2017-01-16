@@ -62,8 +62,18 @@ public class CheckoutPage extends AbstractPage {
         setField(".gifts .gift .name-field", giftRecipientName);
     }
 
+    public WebElement prepayMethodRadioButton() {
+        return findElement(".b-payment-methods .pre-pay");
+    }
+
     public Boolean prepayMethodsIsSelectedByDefault() {
-        return findElement(".b-payment-methods .pre-pay .checked").isEnabled();
+        return prepayMethodRadioButton().findElement(By.cssSelector(".checked")).isEnabled();
+    }
+
+    public void selectPrepayCardMethod() {
+        if (!prepayMethodsIsSelectedByDefault()) {
+            click(prepayMethodRadioButton());
+        }
     }
 
     public WebElement newCardDetails() {
@@ -82,8 +92,16 @@ public class CheckoutPage extends AbstractPage {
         return newCardNumberField().getAttribute("class").contains("error");
     }
 
+    public WebElement securityCodeField() {
+        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(3) .form-row:nth-child(2)"));
+    }
+
+    public void setSecurityCode(String securityCode) {
+        setField(securityCodeField().findElement(By.cssSelector("input")), securityCode);
+    }
+
     public Boolean cardSecurityCodeFieldReturnsError() {
-        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(3) .form-row:nth-child(2).error")).isEnabled();
+        return securityCodeField().getAttribute("class").contains(".error");
     }
 
     public Boolean cardholdersNameFieldReturnsError() {
