@@ -16,12 +16,9 @@ public class CheckoutSubmissionTest {
     public void submitCheckout() {
         Checkout checkout = new CheckoutFactory().build();
         String body = getGson().toJson(checkout);
-        System.out.println(body);
-        //this is commented out until I have the json set up properly and then I will uncomment
-//        String r = checkoutApi.checkoutItem(body);
-//        Assert.assertTrue(r.contains("error"));
-//        System.out.println(r);
-
+        String r = checkoutApi.checkout(body);
+        Assert.assertTrue(r.contains("error"));
+        Assert.assertTrue(r.contains("PAYMENT_FAILURE"));
     }
 
     private Gson getGson() {

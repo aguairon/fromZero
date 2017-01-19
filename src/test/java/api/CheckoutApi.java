@@ -5,7 +5,7 @@ public class CheckoutApi extends SiteApi {
     private final String specificPath;
 
     public CheckoutApi() {
-        this.specificPath = "checkoutItem";
+        this.specificPath = "checkout";
     }
 
     public String checkout(String body) {
