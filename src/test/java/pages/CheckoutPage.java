@@ -27,11 +27,11 @@ public class CheckoutPage extends AbstractPage {
     }
 
     public void setCustomerName(String customerName) {
-        setField("#checkout-appointment-customer-name", customerName);
+        setField("#checkoutItem-appointment-customer-name", customerName);
     }
 
     public void setCustomerEmail(String customerEmail) {
-        setField("#checkout-email-address", customerEmail);
+        setField("#checkoutItem-email-address", customerEmail);
     }
 
     public void setCustomerPhoneNumber(String phoneNumber) {
