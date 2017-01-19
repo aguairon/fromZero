@@ -10,20 +10,17 @@ import pages.*;
 import types.Card;
 
 public class PaymentDetailsTest {
-    WebSite site = new WebSite();
-    BrowsePage browsePage;
-    OfferForm offerForm;
-    AvailabilityPage availabilityPage;
-    CheckoutPage checkoutPage;
-    CardFactory cardFactory = new CardFactory();
-    Card card = cardFactory.build();
+    private WebSite site = new WebSite();
+    private CheckoutPage checkoutPage;
+    private CardFactory cardFactory = new CardFactory();
+    private Card card = cardFactory.build();
 
     @Before
     public void navigateToCheckoutPage() {
-        browsePage = site.navigateToBrowsePage();
+        BrowsePage browsePage = site.navigateToBrowsePage();
         browsePage.closeCookieBanner();
-        offerForm = browsePage.selectFirstAvailableOffer();
-        availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
+        OfferForm offerForm = browsePage.selectFirstAvailableOffer();
+        AvailabilityPage availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
         checkoutPage = availabilityPage.goToCheckout();
     }
 
@@ -52,8 +49,6 @@ public class PaymentDetailsTest {
         checkoutPage.placeOrder();
         Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
     }
-
-
 
     @After
     public void tearDown() throws Exception {
