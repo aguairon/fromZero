@@ -17,6 +17,7 @@ public class CheckoutSubmissionTest {
         Checkout checkout = new CheckoutFactory().build();
         String body = getGson().toJson(checkout);
         String r = checkoutApi.checkout(body);
+        System.out.println(r);
         Assert.assertTrue(r.contains("error"));
         Assert.assertTrue(r.contains("PAYMENT_FAILURE"));
     }

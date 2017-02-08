@@ -84,8 +84,9 @@ public class CheckoutPage extends AbstractPage {
         return findElement(".new-card .grid-line:nth-child(3) .form-row:nth-child(1)");
     }
 
-    public void setNewCardNumber(String newCardNumber) {
+    public void setCardNumber(String newCardNumber) {
         setField(newCardNumberField().findElement(By.cssSelector("input")), newCardNumber);
+        pause(500);
     }
 
     public Boolean cardNumberFieldReturnsError() {
@@ -108,8 +109,16 @@ public class CheckoutPage extends AbstractPage {
         return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(4) .form-row:nth-child(1).error")).isEnabled();
     }
 
+    public WebElement cardExpiryDateField() {
+        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(4) .form-row:nth-child(2)"));
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        setField(cardExpiryDateField().findElement(By.cssSelector("input")), expiryDate);
+    }
+
     public Boolean cardExpiryDateFieldReturnsError() {
-        return newCardDetails().findElement(By.cssSelector(".grid-line:nth-child(4) .form-row:nth-child(2).error")).isEnabled();
+        return cardExpiryDateField().getAttribute("class").contains(".error");
     }
 
     public void placeOrder() {

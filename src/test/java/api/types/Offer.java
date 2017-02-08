@@ -1,6 +1,7 @@
 package api.types;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Offer {
@@ -10,7 +11,7 @@ public class Offer {
     public Integer offerId;
     public OfferType offerType;
     public Integer quantity;
-    public List<Sku> skus;
+    final public List<Sku> skus = new ArrayList<>();
     public Integer venueId;
-    public List<Recipient> recipients;
+    final public List<Recipient> recipients = new ArrayList<>();
 }

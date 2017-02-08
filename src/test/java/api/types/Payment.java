@@ -1,5 +1,6 @@
 package api.types;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Payment {
@@ -8,5 +9,5 @@ public class Payment {
     public Boolean storePaymentCard;
     public String adyenEncryptedData;
     public String adyenEncryptedGenerationTime;
-    public List<DiscountCode> discountCodes;
+    final public List<DiscountCode> discountCodes  = new ArrayList<>();
 }

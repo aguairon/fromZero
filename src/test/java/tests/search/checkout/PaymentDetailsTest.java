@@ -12,8 +12,6 @@ import types.Card;
 public class PaymentDetailsTest {
     private WebSite site = new WebSite();
     private CheckoutPage checkoutPage;
-    private CardFactory cardFactory = new CardFactory();
-    private Card card = cardFactory.build();
 
     @Before
     public void navigateToCheckoutPage() {
@@ -37,7 +35,7 @@ public class PaymentDetailsTest {
     @Test
     public void cannotUseInvalidNewCardNumber() {
         checkoutPage.selectPrepayCardMethod();
-        checkoutPage.setNewCardNumber("41111");
+        checkoutPage.setCardNumber("41111");
         checkoutPage.placeOrder();
         Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
     }
@@ -48,6 +46,23 @@ public class PaymentDetailsTest {
         checkoutPage.setSecurityCode("1111");
         checkoutPage.placeOrder();
         Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
+    }
+
+    @Test
+    public void noErrorsWhenCardDetailsAreFilledIn() {
+        checkoutPage.selectPrepayCardMethod();
+
+        CardFactory cardFactory = new CardFactory();
+        Card card = cardFactory.build();
+        checkoutPage.setCardNumber(card.cardNumber);
+        checkoutPage.setCustomerName(card.cardholderName);
+        checkoutPage.setSecurityCode(card.securityCode);
+        checkoutPage.setExpiryDate(card.expiryDate);
+        checkoutPage.placeOrder();
+        Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardholdersNameFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardExpiryDateFieldReturnsError());
     }
 
     @After

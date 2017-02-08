@@ -1,6 +1,7 @@
 package api.types;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
@@ -9,7 +10,7 @@ public class Customer {
     public GiftOption giftOption;
     public String name;
     public String phoneNumber;
-    public List<Guest> guests;
+    final public List<Guest> guests = new ArrayList<>();
 
 
 }
