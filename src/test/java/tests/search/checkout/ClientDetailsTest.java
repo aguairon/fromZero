@@ -12,43 +12,40 @@ import types.SiteCustomer;
 
 
 public class ClientDetailsTest {
-    WebSite site = new WebSite();
-    BrowsePage browsePage;
-    OfferForm offerForm;
-    AvailabilityPage availabilityPage;
-    CheckoutPage checkoutPage;
-    SiteCustomerFactory siteCustomerFactory = new SiteCustomerFactory();
-    SiteCustomer siteCustomer = siteCustomerFactory.build();
+    final private WebSite site = new WebSite();
+    final private SiteCustomerFactory siteCustomerFactory = new SiteCustomerFactory();
+    final private SiteCustomer siteCustomer = siteCustomerFactory.build();
+    private CheckoutPage checkoutPage;
 
     @Before
     public void navigateToBrowsePage() {
-        browsePage = site.navigateToBrowsePage();
+        BrowsePage browsePage = site.navigateToBrowsePage();
         browsePage.closeCookieBanner();
-        offerForm = browsePage.selectFirstAvailableOffer();
-        availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
+        OfferForm offerForm = browsePage.selectFirstAvailableOffer();
+        AvailabilityPage availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
         checkoutPage = availabilityPage.goToCheckout();
     }
 
     @Test
     public void customerDetailsNeedToBeFilledIn() {
         checkoutPage.placeOrder();
-        Assert.assertTrue(checkoutPage.customerNameFieldReturnsError());
-        Assert.assertTrue(checkoutPage.customerEmailFieldReturnsError());
-        Assert.assertTrue(checkoutPage.customerPhoneFieldReturnsError());
+        Assert.assertTrue(checkoutPage.customerNameFieldHasError());
+        Assert.assertTrue(checkoutPage.customerEmailFieldHasError());
+        Assert.assertTrue(checkoutPage.customerPhoneFieldHasError());
     }
 
     @Test
     public void cannotUseInvalidEmail() {
         checkoutPage.setCustomerEmail("email");
         checkoutPage.placeOrder();
-        Assert.assertTrue(checkoutPage.customerEmailFieldReturnsError());
+        Assert.assertTrue(checkoutPage.customerEmailFieldHasError());
     }
 
     @Test
     public void cannotUseInvalidPhoneNumber() {
         checkoutPage.setCustomerPhoneNumber("66666");
         checkoutPage.placeOrder();
-        Assert.assertTrue(checkoutPage.customerPhoneFieldReturnsError());
+        Assert.assertTrue(checkoutPage.customerPhoneFieldHasError());
     }
 
     @Test (expected = NoSuchElementException.class)
@@ -57,25 +54,25 @@ public class ClientDetailsTest {
         checkoutPage.setCustomerEmail(siteCustomer.emailAddress);
         checkoutPage.setCustomerPhoneNumber(siteCustomer.phoneNumber);
         checkoutPage.placeOrder();
-        Assert.assertFalse(checkoutPage.customerNameFieldReturnsError());
-        Assert.assertFalse(checkoutPage.customerEmailFieldReturnsError());
-        Assert.assertFalse(checkoutPage.customerPhoneFieldReturnsError());
+        Assert.assertFalse(checkoutPage.customerNameFieldHasError());
+        Assert.assertFalse(checkoutPage.customerEmailFieldHasError());
+        Assert.assertFalse(checkoutPage.customerPhoneFieldHasError());
     }
 
     @Test
     public void subscriptionIsCheckedByDefault() {
-        Assert.assertTrue(checkoutPage.subscriptionCheckboxIsChecked());
+        Assert.assertTrue(checkoutPage.isSubscriptionCheckboxChecked());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void ableToDeselectSubscriptionOption() {
         checkoutPage.deselectSubscriptionCheckbox();
-        Assert.assertFalse(checkoutPage.subscriptionCheckboxIsChecked());
+        Assert.assertFalse(checkoutPage.isSubscriptionCheckboxChecked());
     }
 
     @Test
     public void giftOptionIsTurnedOff() {
-        Assert.assertTrue(checkoutPage.giftOptionIsTurnedOff());
+        Assert.assertTrue(checkoutPage.isGiftOptionTurnedOff());
     }
 
     @Test

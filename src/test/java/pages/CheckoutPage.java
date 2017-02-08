@@ -2,6 +2,7 @@ package pages;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,15 +15,15 @@ public class CheckoutPage extends AbstractPage {
         return findElement(".client-details");
     }
 
-    public Boolean customerNameFieldReturnsError() {
+    public Boolean customerNameFieldHasError() {
         return customerDetails().findElement(By.cssSelector(".form-row.error")).isEnabled();
     }
 
-    public Boolean customerEmailFieldReturnsError() {
+    public Boolean customerEmailFieldHasError() {
         return customerDetails().findElement(By.cssSelector(".form-grid-2cols .form-row:nth-child(1).error")).isEnabled();
     }
 
-    public Boolean customerPhoneFieldReturnsError() {
+    public Boolean customerPhoneFieldHasError() {
         return customerDetails().findElement(By.cssSelector(".form-grid-2cols .form-row:nth-child(2).error")).isEnabled();
     }
 
@@ -42,15 +43,19 @@ public class CheckoutPage extends AbstractPage {
         return findElement(".subscribe");
     }
 
-    public Boolean subscriptionCheckboxIsChecked() {
-        return subscriptionCheckbox().findElement(By.cssSelector(".checked")).isEnabled();
+    public Boolean isSubscriptionCheckboxChecked() {
+        try {
+            return subscriptionCheckbox().findElement(By.cssSelector(".checked")).isEnabled();
+        } catch (NoSuchElementException _) {
+            return false;
+        }
     }
 
     public void deselectSubscriptionCheckbox() {
         click(subscriptionCheckbox());
     }
 
-    public Boolean giftOptionIsTurnedOff() {
+    public Boolean isGiftOptionTurnedOff() {
         return findElement(".gifts .inline-inputs .radio:nth-child(1)").findElement(By.cssSelector(".checked")).isEnabled();
     }
 
