@@ -23,16 +23,38 @@ public class CheckoutFactory {
         checkout.payment.discountCodes = new ArrayList<>();
 
         checkout.customer = new Customer();
-        //this is set with fake information for now as I just wanted to see if I had achieved the correct format for the JSON
-        checkout.customer.emailAddress = "blah@yahoo.es";
-        checkout.customer.giftOoption = GiftOption.yes;
-        checkout.customer.name = "blah";
+        checkout.customer.emailAddress = new EmailAddressFactory().build();
+        checkout.customer.giftOption = GiftOption.yes;
+        String customerName = new RandomStringFactory().build();
+        checkout.customer.name = customerName;
         checkout.customer.newsletterSignup = true;
-        checkout.customer.phoneNumber = "02086400366";
+        checkout.customer.phoneNumber = new PhoneNumberFactory().build();
         Guest guest = new Guest();
-        guest.name = "yoquese";
+        guest.name = customerName;
         checkout.customer.guests = new ArrayList<>();
         checkout.customer.guests.add(guest);
+
+        checkout.delivery = new Delivery();
+        checkout.delivery.address  = null;
+
+        checkout.offers = new ArrayList<>();
+        Offer offer = new Offer();
+        offer.fulfillment = Fulfillment.APPOINTMENT;
+        offer.date = currentDate.toString();
+        offer.time = "825";
+        offer.offerId = 1178242;
+        offer.offerType = OfferType.SERVICE;
+        offer.quantity = 1;
+        Sku sku = new Sku();
+        sku.skuId = 1317696;
+        offer.skus = new ArrayList<>();
+        offer.skus.add(sku);
+        offer.venueId = 314127;
+        Recipient recipient = new Recipient();
+        recipient.name = customerName;
+        offer.recipients = new ArrayList<>();
+        offer.recipients.add(recipient);
+        checkout.offers.add(offer);
         return checkout;
     }
 }

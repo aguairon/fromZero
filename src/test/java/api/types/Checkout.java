@@ -1,6 +1,5 @@
 package api.types;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Checkout {
