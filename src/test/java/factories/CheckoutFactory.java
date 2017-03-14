@@ -4,14 +4,16 @@ import api.types.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class CheckoutFactory {
+    LocalDate currentDate = LocalDate.now();
+    String usableDate = currentDate.plusDays(2).toString();
+    String usableTime = "825";
+
     public Checkout build() {
         Checkout checkout = new Checkout();
-        checkout.startTime = "825";
-        LocalDate currentDate = LocalDate.now();
-        checkout.date = currentDate.toString();
+        checkout.startTime = usableTime;
+        checkout.date = usableDate;
 
         checkout.payment = new Payment();
         checkout.payment.advisoryOrderTotal = "3";
@@ -36,8 +38,8 @@ public class CheckoutFactory {
 
         Offer offer = new Offer();
         offer.fulfillment = Fulfillment.APPOINTMENT;
-        offer.date = currentDate.toString();
-        offer.time = "825";
+        offer.date = usableDate;
+        offer.time = usableTime;
         offer.offerId = 1178242;
         offer.offerType = OfferType.SERVICE;
         offer.quantity = 1;
