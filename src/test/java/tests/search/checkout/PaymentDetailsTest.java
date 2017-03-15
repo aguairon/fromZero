@@ -10,20 +10,15 @@ import pages.*;
 import types.Card;
 
 public class PaymentDetailsTest {
-    WebSite site = new WebSite();
-    BrowsePage browsePage;
-    OfferForm offerForm;
-    AvailabilityPage availabilityPage;
-    CheckoutPage checkoutPage;
-    CardFactory cardFactory = new CardFactory();
-    Card card = cardFactory.build();
+    private WebSite site = new WebSite();
+    private CheckoutPage checkoutPage;
 
     @Before
     public void navigateToCheckoutPage() {
-        browsePage = site.navigateToBrowsePage();
+        BrowsePage browsePage = site.navigateToBrowsePage();
         browsePage.closeCookieBanner();
-        offerForm = browsePage.selectFirstAvailableOffer();
-        availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
+        OfferForm offerForm = browsePage.selectFirstAvailableOffer();
+        AvailabilityPage availabilityPage = offerForm.selectSkuAndOpenAvailabilityPage();
         checkoutPage = availabilityPage.goToCheckout();
     }
 
@@ -40,7 +35,7 @@ public class PaymentDetailsTest {
     @Test
     public void cannotUseInvalidNewCardNumber() {
         checkoutPage.selectPrepayCardMethod();
-        checkoutPage.setNewCardNumber("41111");
+        checkoutPage.setCardNumber("41111");
         checkoutPage.placeOrder();
         Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
     }
@@ -53,7 +48,22 @@ public class PaymentDetailsTest {
         Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
     }
 
+    @Test
+    public void noErrorsWhenCardDetailsAreFilledIn() {
+        checkoutPage.selectPrepayCardMethod();
 
+        CardFactory cardFactory = new CardFactory();
+        Card card = cardFactory.build();
+        checkoutPage.setCardNumber(card.cardNumber);
+        checkoutPage.setCustomerName(card.cardholderName);
+        checkoutPage.setSecurityCode(card.securityCode);
+        checkoutPage.setExpiryDate(card.expiryDate);
+        checkoutPage.placeOrder();
+        Assert.assertTrue(checkoutPage.cardNumberFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardSecurityCodeFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardholdersNameFieldReturnsError());
+        Assert.assertTrue(checkoutPage.cardExpiryDateFieldReturnsError());
+    }
 
     @After
     public void tearDown() throws Exception {

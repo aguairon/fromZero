@@ -1,15 +1,16 @@
 package api.types;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
     public String emailAddress;
     public Boolean newsletterSignup;
-    public GiftOption giftOoption;
+    public GiftOption giftOption;
     public String name;
     public String phoneNumber;
-    public List<Guest> guests;
+    final public List<Guest> guests = new ArrayList<>();
 
 
 }

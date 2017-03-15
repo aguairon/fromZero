@@ -1,10 +1,10 @@
 package api.types;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Checkout {
-    public List<Offer> offers;
+    final public List<Offer> offers = new ArrayList<>();
     public String startTime;
     public String date;
     public Payment payment;
