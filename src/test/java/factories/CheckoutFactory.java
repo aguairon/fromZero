@@ -17,17 +17,9 @@ public class CheckoutFactory {
 
         checkout.payment = new PaymentFactory().build();
 
-        checkout.customer = new Customer();
-        checkout.customer.emailAddress = new EmailAddressFactory().build();
-        checkout.customer.giftOption = GiftOption.yes;
         String customerName = new RandomStringFactory().build();
-        checkout.customer.name = customerName;
-        checkout.customer.newsletterSignup = true;
-        checkout.customer.phoneNumber = new PhoneNumberFactory().build();
-        Guest guest = new Guest();
-        guest.name = customerName;
-        checkout.customer.guests.add(guest);
-
+        checkout.customer = new CustomerFactory().build(customerName);
+        
         checkout.delivery = new Delivery();
 
         Offer offer = new Offer();
