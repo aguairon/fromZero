@@ -1,6 +1,8 @@
 package api;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jayway.restassured.RestAssured;
 
 
@@ -14,11 +16,16 @@ public class SiteApi extends RestAssured {
         RestAssured.basePath = basePath;
     }
 
-    public String post(String body, String specificPath, int statusCode) {
+    public String post(Object body, String specificPath, int statusCode) {
+        String bodyJson = getGson().toJson(body);
          return
-             given().contentType("application/json").body(body).
+             given().contentType("application/json").body(bodyJson).
              when().post(specificPath).
              then().statusCode(statusCode).
              extract().response().asString();
+    }
+
+    private Gson getGson() {
+        return new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
     }
 }

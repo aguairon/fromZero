@@ -17,8 +17,7 @@ public class CheckoutSubmissionTest {
     @Test
     public void submitCheckoutWithIncorrectAdyenCode() {
         Checkout checkout = new CheckoutFactory().build();
-        String body = getGson().toJson(checkout);
-        String r = checkoutApi.checkout(body);
+        String r = checkoutApi.checkout(checkout);
         System.out.println(r);
         Assert.assertTrue(r.contains("error"));
         Assert.assertTrue(r.contains("PAYMENT_FAILURE"));
@@ -32,14 +31,10 @@ public class CheckoutSubmissionTest {
         checkout.date = usableDate;
         checkout.offers.get(0).date = usableDate;
 
-        String body = getGson().toJson(checkout);
-        String r = checkoutApi.checkout(body);
+        String r = checkoutApi.checkout(checkout);
         System.out.println(r);
         Assert.assertTrue(r.contains("error"));
         Assert.assertTrue(r.contains("APPOINTMENT_SLOT_FILLED"));
     }
 
-    private Gson getGson() {
-        return new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
-    }
 }
