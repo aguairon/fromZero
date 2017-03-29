@@ -17,7 +17,7 @@ public class CheckoutSubmissionTest {
 
     @Test
     public void submitCheckoutWithIncorrectAdyenCode() {
-        Checkout checkout = new CheckoutFactory().build();
+        Checkout checkout = new CheckoutFactory().build(PaymentType.CARD);
         String r = checkoutApi.checkout(checkout);
         System.out.println(r);
         Assert.assertTrue(r.contains("error"));
