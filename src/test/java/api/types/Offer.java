@@ -9,6 +9,7 @@ public class Offer {
     public String date;
     public String time;
     public Integer offerId;
+    public Integer serviceId;
     public OfferType offerType;
     public Integer quantity;
     final public List<Sku> skus = new ArrayList<>();

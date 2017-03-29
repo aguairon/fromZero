@@ -1,9 +1,12 @@
 package api;
 
 
+import com.jayway.restassured.RestAssured;
+
+import api.types.Offers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jayway.restassured.RestAssured;
+
 
 
 public class SiteApi extends RestAssured {
@@ -25,6 +28,22 @@ public class SiteApi extends RestAssured {
              extract().response().asString();
     }
 
+    public String toma(String specificPath, Offers offers) {
+        return
+            given().contentType("application/json").param("proposedServices", offers).
+            when().get(specificPath).
+            then().extract().body().asString();
+    }
+
+//    protected ValidatableResponse httpGetWithParameter(String urlPath, String parameter) {
+//        return requestBuilder().param("include", parameter)
+//                .when().get(utility.siteUrl(UrlPrefix.connect) + urlPath)
+//                .then();
+//    }
+
+//    protected RequestSpecification requestBuilder() {
+//        return RestAssured.given().cookie(apiVenueDetails.cookies.toString());
+//    }
     private Gson getGson() {
         return new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
     }

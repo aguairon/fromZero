@@ -10,12 +10,12 @@ public class CheckoutFactory {
     String usableDate = currentDate.plusDays(2).toString();
     String usableTime = "825";
 
-    public Checkout build() {
+    public Checkout build(PaymentType paymentType) {
         Checkout checkout = new Checkout();
         checkout.startTime = usableTime;
         checkout.date = usableDate;
 
-        checkout.payment = new PaymentFactory().build();
+        checkout.payment = new PaymentFactory().build(paymentType);
 
         checkout.customer = new Customer();
         checkout.customer.emailAddress = new EmailAddressFactory().build();
